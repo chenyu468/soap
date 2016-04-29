@@ -21,6 +21,7 @@
 %%% Deals with the parsing of the WSDL, extracting information from it and
 %%% translating it to an "interface{}" record.
 -module(soap_parse_wsdl).
+-compile([{parse_transform, lager_transform}]).
 
 -include("soap_wsdl_1_1.hrl").
 -include("soap.hrl").
@@ -64,9 +65,15 @@ get_model(Wsdl_file, Options) ->
     [{uri(), prefix()}].
 get_namespaces(Wsdl_file, Options) ->
     Model = get_model(Wsdl_file, Options),
-    Namespace_pairs = erlsom_lib:getNamespacesFromModel(Model),
-    %% TODO: it is not clear why 'undefined' should be there at all. 
-    lists:usort([Uri || {Uri, _Prefix} <- Namespace_pairs, Uri /= undefined]).
+    case Model of
+        undefined ->
+            undefined;
+        _ ->
+            Namespace_pairs = erlsom_lib:getNamespacesFromModel(Model),
+            %% TODO: it is not clear why 'undefined' should be there at all. 
+            lists:usort([Uri || {Uri, _Prefix} <- Namespace_pairs, Uri /= undefined]) 
+    end.
+
 
 
 %% ---------------------------------------------------------------------------
@@ -120,9 +127,13 @@ parse_wsdls([], _Options, Interface) ->
 parse_wsdls([Wsdl_file | Tail], Options, 
             #interface{prefix_count = Pf_count, 
             imported = Imported} = Interface) ->
+    lager:debug("_124:~n\t~p",[Interface]),
     {ok, Wsdl_binary} = get_url_file(Wsdl_file),
     {ok, Wsdl, _} = soap_decode_wsdl_1_1:decode(Wsdl_binary),
+    lager:debug("_125:~n\t~p",[Wsdl]),
     Xsds = get_types(Wsdl),
+    lager:debug("_128:~n\t~p",[Xsds]),
+    lager:debug("_129:~n\t~p",[Interface]),
     %% Now we need to build a list: [{Namespace, Prefix, Xsd}, ...] for
     %% all the Xsds in the WSDL.
     %% This list is used when a schema includes one of the other schemas.
@@ -133,6 +144,7 @@ parse_wsdls([Wsdl_file | Tail], Options,
     {Pf_count2, Import_list} = make_import_list(Xsds, Pf_count, Namespace_options),
     Model = Interface#interface.model,
     Model2 = add_schemas(Xsds, Model, Options, Import_list, Imported),
+    lager:debug("_141:~n\t~p",[Model2]),
     Ns_list = [{Ns, Pf} || {Ns, Pf, _} <- Import_list],
     Interface2 = Interface#interface{model = Model2, 
                                      prefix_count = Pf_count2,
@@ -210,6 +222,7 @@ add_schemas([Xsd| Tail], AccModel, Options, ImportList, Imported) ->
 
 
 get_types(#'wsdl:definitions'{types = Types}) ->
+    lager:debug("_216:~n\t~p",[Types]),
     #'wsdl:types'{choice = Xsds} = Types,
     Xsds.
 
@@ -363,20 +376,26 @@ type_for_message(#'wsdl:definitions'{message = Messages}, Message, Model) ->
             {error, "Message " ++ Message ++ " not found"};
         #'wsdl:message'{part = Parts} when length(Parts) /= 1 ->
             {error, "Message " ++ Message ++ " does not have exactly 1 part"};
-        #'wsdl:message'{part = [#'wsdl:part'{element = Element}]} ->
+        A = #'wsdl:message'{part = [#'wsdl:part'{element = Element,type=Type}]} ->
             %% what we need is the type
-            LocalPart = erlsom_lib:localName(Element),
-            Uri = erlsom_lib:getUriFromQname(Element),
-            Prefix = erlsom_lib:getPrefixFromModel(Model, Uri),
-            Element_name = case Prefix of 
-                    undefined ->
-                        LocalPart;
-                    "" ->
-                        LocalPart;
-                    _ -> 
-                        Prefix ++ ":" ++ LocalPart
-                end,
-            type_for_element(list_to_atom(Element_name), Model)
+            lager:debug("_381:~n\t~p",[A]),
+            case Element of
+                undefined ->
+                    Type;
+                _ ->
+                    LocalPart = erlsom_lib:localName(Element),
+                    Uri = erlsom_lib:getUriFromQname(Element),
+                    Prefix = erlsom_lib:getPrefixFromModel(Model, Uri),
+                    Element_name = case Prefix of 
+                                       undefined ->
+                                           LocalPart;
+                                       "" ->
+                                           LocalPart;
+                                       _ -> 
+                                           Prefix ++ ":" ++ LocalPart
+                                   end,
+                    type_for_element(list_to_atom(Element_name), Model)                    
+            end
     end.
 
 type_for_element(Element, Model) ->

@@ -22,6 +22,8 @@
 %%% Interface (facade) for the soap framework.
 %%% 
 -module(soap).
+-compile([{parse_transform, lager_transform}]).
+
 -export([wsdl2erlang/1, wsdl2erlang/2]).
 -export([make_test_client/1, make_test_client/2]).
 -export([erlang2wsdl/3, erlang2wsdl/4]).
@@ -307,11 +309,15 @@ wsdl2erlang(File, Options) ->
     Service = get_value(Options, service, 
                         "\nWhich service must be implemented?",
                         Service_names), 
+    lager:debug("_310:~n\t~p",[Service]),
     Port_names = proplists:get_value(Service, Services),
+    lager:debug("_312:~n\t~p",[Port_names]),
     Port = get_value(Options, port, "\nWhich port must be implemented?",
                      Port_names), 
     Namespaces = soap_compile_wsdl:get_namespaces(File, Options),
-    Prefixes = get_prefixes(Namespaces, Options),
+    Prefixes_a = get_prefixes(Namespaces, Options),
+    lager:debug("_319:~n\t~p",[Prefixes_a]),
+    Prefixes = [{"urn:opacService",undefined}],
     Strict = proplists:get_value(strict, Options, true),
     Remove = [generate, http_server, http_client, port, service, namespaces,
               client_name, server_name, hrl_name, strict, generate_tests],
@@ -362,6 +368,9 @@ erlang2wsdl(Hrl_file, Service_name, Url, Options) ->
 %%% ============================================================================
 
 %% Every namespace must have a different prefix (1 may be "empty")
+get_prefixes(undefined,_)->
+    undefined;
+
 get_prefixes(Uris, Options) ->
     Automatic = proplists:get_value(automatic_prefixes, Options, false),
     Uris2 = lists:delete("http://www.w3.org/2001/XMLSchema", Uris),
