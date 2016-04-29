@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<wsdl:definitions name="opacService" targetNamespace="urn:opacService"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="urn:opacService"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:types xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="com.esendex.ems.soapinterface">
+    </xsd:schema>
+ </wsdl:types>
+<wsdl:message name="getLibSysCodeRequest">
+<wsdl:part name="code" type="xsd:string" />
+</wsdl:message>
+<wsdl:portType name="opacServicePort">
+  <wsdl:operation name="getLibSysCode">
+    <wsdl:input message="tns:getLibSysCodeRequest" />
+    <wsdl:output message="tns:getLibSysCodeResponse" />
+  </wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="opacServiceBinding" type="tns:opacServicePort">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+  <wsdl:operation name="getLibSysCode">
+    <soap:operation soapAction="urn:opacService#opac#getLibSysCode" />
+    <wsdl:input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+    </wsdl:input>
+    <wsdl:output>
+      <soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+    </wsdl:output>
+  </wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="opacService">
+  <wsdl:documentation />
+<wsdl:port name="opacServicePort" binding="tns:opacServiceBinding">
+  <soap:address location="http://10.36.29.20:80/webservice/service.php" />
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
