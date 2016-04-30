@@ -1,0 +1,617 @@
+<?xml version="1.0" ?>
+<definitions name="opacService" targetNamespace="urn:opacService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:opacService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="opacServicePort"><operation name="getLibSysCode">
+<input message="tns:getLibSysCodeRequest" />
+<output message="tns:getLibSysCodeResponse" />
+</operation>
+<operation name="getUInfo">
+<input message="tns:getUInfoRequest" />
+<output message="tns:getUInfoResponse" />
+</operation>
+<operation name="getLibs">
+<input message="tns:getLibsRequest" />
+<output message="tns:getLibsResponse" />
+</operation>
+<operation name="getLibCtype">
+<input message="tns:getLibCtypeRequest" />
+<output message="tns:getLibCtypeResponse" />
+</operation>
+<operation name="getRInfo">
+<input message="tns:getRInfoRequest" />
+<output message="tns:getRInfoResponse" />
+</operation>
+<operation name="searchUserAllBooks">
+<input message="tns:searchUserAllBooksRequest" />
+<output message="tns:searchUserAllBooksResponse" />
+</operation>
+<operation name="searchUserAllBooksByBdate">
+<input message="tns:searchUserAllBooksByBdateRequest" />
+<output message="tns:searchUserAllBooksByBdateResponse" />
+</operation>
+<operation name="searchUserBooks">
+<input message="tns:searchUserBooksRequest" />
+<output message="tns:searchUserBooksResponse" />
+</operation>
+<operation name="getBooksByDate">
+<input message="tns:getBooksByDateRequest" />
+<output message="tns:getBooksByDateResponse" />
+</operation>
+<operation name="getAllBooksByDate">
+<input message="tns:getAllBooksByDateRequest" />
+<output message="tns:getAllBooksByDateResponse" />
+</operation>
+<operation name="countBooksByDate">
+<input message="tns:countBooksByDateRequest" />
+<output message="tns:countBooksByDateResponse" />
+</operation>
+<operation name="searchISBN">
+<input message="tns:searchISBNRequest" />
+<output message="tns:searchISBNResponse" />
+</operation>
+<operation name="searchTitle">
+<input message="tns:searchTitleRequest" />
+<output message="tns:searchTitleResponse" />
+</operation>
+<operation name="searchClass">
+<input message="tns:searchClassRequest" />
+<output message="tns:searchClassResponse" />
+</operation>
+<operation name="countTitle">
+<input message="tns:countTitleRequest" />
+<output message="tns:countTitleResponse" />
+</operation>
+<operation name="countClass">
+<input message="tns:countClassRequest" />
+<output message="tns:countClassResponse" />
+</operation>
+<operation name="getEachBook">
+<input message="tns:getEachBookRequest" />
+<output message="tns:getEachBookResponse" />
+</operation>
+<operation name="getBookMARC">
+<input message="tns:getBookMARCRequest" />
+<output message="tns:getBookMARCResponse" />
+</operation>
+<operation name="CBorrowBook">
+<input message="tns:CBorrowBookRequest" />
+<output message="tns:CBorrowBookResponse" />
+</operation>
+<operation name="PBorrowBook">
+<input message="tns:PBorrowBookRequest" />
+<output message="tns:PBorrowBookResponse" />
+</operation>
+<operation name="listPBorrowBook">
+<input message="tns:listPBorrowBookRequest" />
+<output message="tns:listPBorrowBookResponse" />
+</operation>
+<operation name="cancelPBorrowBook">
+<input message="tns:cancelPBorrowBookRequest" />
+<output message="tns:cancelPBorrowBookResponse" />
+</operation>
+<operation name="listLibRBook">
+<input message="tns:listLibRBookRequest" />
+<output message="tns:listLibRBookResponse" />
+</operation>
+<operation name="listLibRBookByReader">
+<input message="tns:listLibRBookByReaderRequest" />
+<output message="tns:listLibRBookByReaderResponse" />
+</operation>
+<operation name="listLibBookIO">
+<input message="tns:listLibBookIORequest" />
+<output message="tns:listLibBookIOResponse" />
+</operation>
+<operation name="query_readercard_state">
+<input message="tns:query_readercard_stateRequest" />
+<output message="tns:query_readercard_stateResponse" />
+</operation>
+<operation name="analy_readercard">
+<input message="tns:analy_readercardRequest" />
+<output message="tns:analy_readercardResponse" />
+</operation>
+<operation name="query_BookIO_summary">
+<input message="tns:query_BookIO_summaryRequest" />
+<output message="tns:query_BookIO_summaryResponse" />
+</operation>
+<operation name="query_topreaders">
+<input message="tns:query_topreadersRequest" />
+<output message="tns:query_topreadersResponse" />
+</operation>
+<operation name="query_topBooks">
+<input message="tns:query_topBooksRequest" />
+<output message="tns:query_topBooksResponse" />
+</operation>
+</portType>
+<binding name="opacServiceBinding" type="tns:opacServicePort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="getLibSysCode">
+<soap:operation soapAction="urn:opacService#opac#getLibSysCode" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getUInfo">
+<soap:operation soapAction="urn:opacService#opac#getUInfo" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getLibs">
+<soap:operation soapAction="urn:opacService#opac#getLibs" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getLibCtype">
+<soap:operation soapAction="urn:opacService#opac#getLibCtype" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getRInfo">
+<soap:operation soapAction="urn:opacService#opac#getRInfo" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchUserAllBooks">
+<soap:operation soapAction="urn:opacService#opac#searchUserAllBooks" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchUserAllBooksByBdate">
+<soap:operation soapAction="urn:opacService#opac#searchUserAllBooksByBdate" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchUserBooks">
+<soap:operation soapAction="urn:opacService#opac#searchUserBooks" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getBooksByDate">
+<soap:operation soapAction="urn:opacService#opac#getBooksByDate" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getAllBooksByDate">
+<soap:operation soapAction="urn:opacService#opac#getAllBooksByDate" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countBooksByDate">
+<soap:operation soapAction="urn:opacService#opac#countBooksByDate" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchISBN">
+<soap:operation soapAction="urn:opacService#opac#searchISBN" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchTitle">
+<soap:operation soapAction="urn:opacService#opac#searchTitle" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="searchClass">
+<soap:operation soapAction="urn:opacService#opac#searchClass" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countTitle">
+<soap:operation soapAction="urn:opacService#opac#countTitle" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countClass">
+<soap:operation soapAction="urn:opacService#opac#countClass" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getEachBook">
+<soap:operation soapAction="urn:opacService#opac#getEachBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getBookMARC">
+<soap:operation soapAction="urn:opacService#opac#getBookMARC" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="CBorrowBook">
+<soap:operation soapAction="urn:opacService#opac#CBorrowBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="PBorrowBook">
+<soap:operation soapAction="urn:opacService#opac#PBorrowBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listPBorrowBook">
+<soap:operation soapAction="urn:opacService#opac#listPBorrowBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="cancelPBorrowBook">
+<soap:operation soapAction="urn:opacService#opac#cancelPBorrowBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listLibRBook">
+<soap:operation soapAction="urn:opacService#opac#listLibRBook" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listLibRBookByReader">
+<soap:operation soapAction="urn:opacService#opac#listLibRBookByReader" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listLibBookIO">
+<soap:operation soapAction="urn:opacService#opac#listLibBookIO" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="query_readercard_state">
+<soap:operation soapAction="urn:opacService#opac#query_readercard_state" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="analy_readercard">
+<soap:operation soapAction="urn:opacService#opac#analy_readercard" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="query_BookIO_summary">
+<soap:operation soapAction="urn:opacService#opac#query_BookIO_summary" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="query_topreaders">
+<soap:operation soapAction="urn:opacService#opac#query_topreaders" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="query_topBooks">
+<soap:operation soapAction="urn:opacService#opac#query_topBooks" />
+<input><soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:opacService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="opacService">
+<documentation />
+<port name="opacServicePort" binding="tns:opacServiceBinding"><soap:address location="http://10.36.29.20:80/webservice/service.php" />
+</port>
+</service>
+<message name="getLibSysCodeRequest">
+<part name="code" type="xsd:string" />
+</message>
+<message name="getLibSysCodeResponse">
+<part name="getLibSysCode" type="xsd:string" />
+</message>
+<message name="getUInfoRequest">
+<part name="UID" type="xsd:string" />
+<part name="Upassword" type="xsd:string" />
+<part name="IdType" type="xsd:string" />
+</message>
+<message name="getUInfoResponse">
+<part name="getUInfo" type="xsd:string" />
+</message>
+<message name="getLibsRequest">
+</message>
+<message name="getLibsResponse">
+<part name="getLibs" type="xsd:string" />
+</message>
+<message name="getLibCtypeRequest">
+</message>
+<message name="getLibCtypeResponse">
+<part name="getLibCtype" type="xsd:string" />
+</message>
+<message name="getRInfoRequest">
+<part name="CardNo" type="xsd:string" />
+<part name="libcode" type="xsd:string" />
+</message>
+<message name="getRInfoResponse">
+<part name="getRInfo" type="xsd:string" />
+</message>
+<message name="searchUserAllBooksRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="State" type="xsd:string" />
+<part name="Type" type="xsd:string" />
+<part name="ReadLibCode" type="xsd:string" />
+</message>
+<message name="searchUserAllBooksResponse">
+<part name="searchUserAllBooks" type="xsd:string" />
+</message>
+<message name="searchUserAllBooksByBdateRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="State" type="xsd:string" />
+<part name="Type" type="xsd:string" />
+<part name="ReadLibCode" type="xsd:string" />
+</message>
+<message name="searchUserAllBooksByBdateResponse">
+<part name="searchUserAllBooksByBdate" type="xsd:string" />
+</message>
+<message name="searchUserBooksRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="State" type="xsd:string" />
+<part name="Type" type="xsd:string" />
+<part name="ReadLibCode" type="xsd:string" />
+<part name="searchLibCode" type="xsd:string" />
+</message>
+<message name="searchUserBooksResponse">
+<part name="searchUserBooks" type="xsd:string" />
+</message>
+<message name="getBooksByDateRequest">
+<part name="libcode" type="xsd:string" />
+<part name="sDate" type="xsd:string" />
+<part name="intval" type="xsd:string" />
+<part name="unit" type="xsd:string" />
+</message>
+<message name="getBooksByDateResponse">
+<part name="getBooksByDate" type="xsd:string" />
+</message>
+<message name="getAllBooksByDateRequest">
+<part name="sDate" type="xsd:string" />
+<part name="intval" type="xsd:string" />
+<part name="unit" type="xsd:string" />
+</message>
+<message name="getAllBooksByDateResponse">
+<part name="getAllBooksByDate" type="xsd:string" />
+</message>
+<message name="countBooksByDateRequest">
+<part name="libcode" type="xsd:string" />
+<part name="sDate" type="xsd:string" />
+<part name="intval" type="xsd:string" />
+<part name="unit" type="xsd:string" />
+</message>
+<message name="countBooksByDateResponse">
+<part name="countBooksByDate" type="xsd:string" />
+</message>
+<message name="searchISBNRequest">
+<part name="ISBN" type="xsd:string" />
+<part name="LibCode" type="xsd:string" />
+</message>
+<message name="searchISBNResponse">
+<part name="searchISBN" type="xsd:string" />
+</message>
+<message name="searchTitleRequest">
+<part name="title" type="xsd:string" />
+<part name="LibCode" type="xsd:string" />
+<part name="pagesize" type="xsd:string" />
+<part name="page" type="xsd:string" />
+</message>
+<message name="searchTitleResponse">
+<part name="searchTitle" type="xsd:string" />
+</message>
+<message name="searchClassRequest">
+<part name="class" type="xsd:string" />
+<part name="LibCode" type="xsd:string" />
+<part name="pagesize" type="xsd:string" />
+<part name="page" type="xsd:string" />
+</message>
+<message name="searchClassResponse">
+<part name="searchClass" type="xsd:string" />
+</message>
+<message name="countTitleRequest">
+<part name="title" type="xsd:string" />
+<part name="LibCode" type="xsd:string" />
+</message>
+<message name="countTitleResponse">
+<part name="countTitle" type="xsd:string" />
+</message>
+<message name="countClassRequest">
+<part name="class" type="xsd:string" />
+<part name="LibCode" type="xsd:string" />
+</message>
+<message name="countClassResponse">
+<part name="countClass" type="xsd:string" />
+</message>
+<message name="getEachBookRequest">
+<part name="bid" type="xsd:string" />
+<part name="libcode" type="xsd:string" />
+</message>
+<message name="getEachBookResponse">
+<part name="getEachBook" type="xsd:string" />
+</message>
+<message name="getBookMARCRequest">
+<part name="barcode" type="xsd:string" />
+<part name="libcode" type="xsd:string" />
+</message>
+<message name="getBookMARCResponse">
+<part name="getBookMARC" type="xsd:string" />
+</message>
+<message name="CBorrowBookRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="BarCode" type="xsd:string" />
+<part name="RLibCode" type="xsd:string" />
+<part name="BLibCode" type="xsd:string" />
+</message>
+<message name="CBorrowBookResponse">
+<part name="CBorrowBook" type="xsd:string" />
+</message>
+<message name="PBorrowBookRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="BID" type="xsd:string" />
+<part name="volno" type="xsd:string" />
+<part name="RLibCode" type="xsd:string" />
+<part name="BLibCode" type="xsd:string" />
+</message>
+<message name="PBorrowBookResponse">
+<part name="PBorrowBook" type="xsd:string" />
+</message>
+<message name="listPBorrowBookRequest">
+<part name="RCardNo" type="xsd:string" />
+<part name="RLibCode" type="xsd:string" />
+<part name="BLibCode" type="xsd:string" />
+</message>
+<message name="listPBorrowBookResponse">
+<part name="listPBorrowBook" type="xsd:string" />
+</message>
+<message name="cancelPBorrowBookRequest">
+<part name="preID" type="xsd:string" />
+<part name="RCardNo" type="xsd:string" />
+<part name="BID" type="xsd:string" />
+<part name="volno" type="xsd:string" />
+<part name="RLibCode" type="xsd:string" />
+<part name="BLibCode" type="xsd:string" />
+</message>
+<message name="cancelPBorrowBookResponse">
+<part name="cancelPBorrowBook" type="xsd:string" />
+</message>
+<message name="listLibRBookRequest">
+<part name="libcode" type="xsd:string" />
+<part name="type" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="listLibRBookResponse">
+<part name="listLibRBook" type="xsd:string" />
+</message>
+<message name="listLibRBookByReaderRequest">
+<part name="libcode" type="xsd:string" />
+<part name="type" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="listLibRBookByReaderResponse">
+<part name="listLibRBookByReader" type="xsd:string" />
+</message>
+<message name="listLibBookIORequest">
+<part name="libcode" type="xsd:string" />
+<part name="state" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="listLibBookIOResponse">
+<part name="listLibBookIO" type="xsd:string" />
+</message>
+<message name="query_readercard_stateRequest">
+<part name="libcode" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="query_readercard_stateResponse">
+<part name="query_readercard_state" type="xsd:string" />
+</message>
+<message name="analy_readercardRequest">
+<part name="libcode" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="analy_readercardResponse">
+<part name="analy_readercard" type="xsd:string" />
+</message>
+<message name="query_BookIO_summaryRequest">
+<part name="libcode" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="query_BookIO_summaryResponse">
+<part name="query_BookIO_summary" type="xsd:string" />
+</message>
+<message name="query_topreadersRequest">
+<part name="libcode" type="xsd:string" />
+<part name="top" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="query_topreadersResponse">
+<part name="query_topreaders" type="xsd:string" />
+</message>
+<message name="query_topBooksRequest">
+<part name="libcode" type="xsd:string" />
+<part name="top" type="xsd:string" />
+<part name="sdate" type="xsd:string" />
+<part name="edate" type="xsd:string" />
+</message>
+<message name="query_topBooksResponse">
+<part name="query_topBooks" type="xsd:string" />
+</message>
+</definitions>
