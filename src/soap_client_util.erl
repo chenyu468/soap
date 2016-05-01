@@ -26,6 +26,7 @@
 %%% the selected HTTP client application is called.
 %%%
 -module(soap_client_util).
+-compile([{parse_transform, lager_transform}]).
 
 -include("soap.hrl").
 
@@ -85,6 +86,7 @@ call(Body, Headers, Options, Soap_action,
     Interface2 = process_options(Options, Interface), 
     case encode_headers(Headers, Model) of
         {ok, Encoded_headers} ->
+            lager:debug("_89:~n\t~p",[Encoded_headers]),
             call_body(Body, Encoded_headers, Soap_action, Interface2, Attachments);
         Error ->
             Error
@@ -96,6 +98,7 @@ call(Body, Headers, Options, Soap_action,
 
 call_body(Body, [], Soap_action, Interface, Attachments)
     when not is_tuple(Body) ->
+    lager:debug("_101:~n\t~p",[Body]),
     call_message(Body, Soap_action, Interface, Attachments);
 call_body(Body, Encoded_headers, Soap_action, 
           #interface{model = Model, soap_ns = Namespace} = Interface,
@@ -110,6 +113,7 @@ call_body(Body, Encoded_headers, Soap_action,
                     "<s:Body>",
                     Encoded_body,
                     "</s:Body></s:Envelope>"],
+            lager:debug("_115:~n\t~p",[Http_body]),
             call_message(Http_body, Soap_action, Interface, Attachments)
     catch
         Class:Error ->
@@ -136,6 +140,7 @@ call_message(Http_body, Soap_action,
         _ ->
             Mime_headers = [{"Content-type", Content_type} | Message_headers],
             Mime_body = soap_mime:mime_body(Http_body, Mime_headers, Attachments),
+            lager:debug("_141:~n\t~p",[Mime_body]),
             call_http(Mime_body, Interface, [], soap_mime:mime_content_type())
     end.
 
