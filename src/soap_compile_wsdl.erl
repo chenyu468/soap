@@ -23,7 +23,7 @@
 %%% writes Elang modules (stubs, skeletons and a .hrl file).
 %%%
 -module(soap_compile_wsdl).
-
+-compile([{parse_transform, lager_transform}]).
 -export([file/5]).
 -export([get_services/2]).
 -export([get_namespaces/2]).
@@ -58,34 +58,36 @@
            Service::string(), Port::string(), Options::[option()], 
            Hrl_name::string()) -> ok | {error, any()}.
 file(Wsdl_file, Service, Port, Options, Module) -> 
+    lager:debug("_61"),
     Module_atom = list_to_atom(filename:basename(Module)),
     Generate = proplists:get_value(generate, Options, both),
     Generate_tests = proplists:get_value(generate_tests, Options, none),
     Generate_test_client = (Generate_tests == both) or 
-                           (Generate_tests == client),
+                                                      (Generate_tests == client),
     Generate_test_server = (Generate_tests == both) or 
-                           (Generate_tests == server),
+                                                      (Generate_tests == server),
     Make_client = (Generate == client) or (Generate == both),
     Make_server = (Generate == server) or (Generate == both),
     Client = proplists:get_value(client_name, Options, Module ++ "_client"),
     Handler = proplists:get_value(server_name, Options, Module ++ "_server"),
     %% there are separate parsers for WSDL 1.1 and 2.0
     Parser = parser_module(Options),
+    lager:debug("_75"),
     Interface = Parser:file(Wsdl_file, Service, Port, Options),
     Interface2 = 
         Interface#interface{
-            http_client = proplists:get_value(http_client, 
-                                              Options, soap_client_ibrowse),
-            http_options = proplists:get_value(http_options, Options, []),
-            http_server = proplists:get_value(http_server, 
-                                              Options, soap_server_cowboy_1),
-            module = Module_atom},
+          http_client = proplists:get_value(http_client, 
+                                            Options, soap_client_ibrowse),
+          http_options = proplists:get_value(http_options, Options, []),
+          http_server = proplists:get_value(http_server, 
+                                            Options, soap_server_cowboy_1),
+          module = Module_atom},
     case Make_server of
         true ->
             Interface3 = 
                 Interface2#interface{server_handler = list_to_atom(Handler)},
-                write_server(Wsdl_file, Service, Port, Options, Module, 
-                             Handler, Interface3);
+            write_server(Wsdl_file, Service, Port, Options, Module, 
+                         Handler, Interface3);
         false ->
             Interface3 = Interface2
     end,
@@ -99,17 +101,19 @@ file(Wsdl_file, Service, Port, Options, Module) ->
             Interface4 = Interface3
     end,
     case Generate_test_client of
-      false -> ok;
-      true ->
-         soap_test_module:from_interface(Interface4, Client, Client ++ "_test",
-                                         hrl_file_name(Module), Options)
+        false -> ok;
+        true ->
+            lager:debug("_104:~n\t~p~n\t~p~n\t~p~n\t~p",
+                        [Interface4,Client,Module,Options]),
+            soap_test_module:from_interface(Interface4, Client, Client ++ "_test",
+                                            hrl_file_name(Module), Options)
     end,
     case Generate_test_server of
-      false -> ok;
-      true ->
-         write_server(Wsdl_file, Service, Port, 
-                      [{test_values, true} | Options], Module, 
-                      Handler ++ "_test", Interface4)
+        false -> ok;
+        true ->
+            write_server(Wsdl_file, Service, Port, 
+                         [{test_values, true} | Options], Module, 
+                         Handler ++ "_test", Interface4)
     end,
     write_hrl(Interface4, Wsdl_file, Options, Module).
 

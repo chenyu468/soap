@@ -149,14 +149,18 @@ parse_wsdls([Wsdl_file | Tail], Options,
     Interface2 = Interface#interface{model = Model2, 
                                      prefix_count = Pf_count2,
                                      imported = Imported ++ Ns_list},
+    lager:debug("_152:~n\t~p",[Interface2]),
     Interface3 = get_operations(Wsdl, Interface2),
+    lager:debug("_154:~n\t~p",[Interface3]),
     Imports = get_imports(Wsdl),
     % io:format("WSDL imports: ~p~n", [Imports]),
     %% process imports (recursively, so that imports in the imported files are
     %% processed as well).
     %% For the moment, the namespace is ignored on operations etc.
     %% this makes it a bit easier to deal with imported wsdl's.
+    lager:debug("_161:~n\t~p~n\t~p",[Imports,Options]),
     Interface4 = parse_wsdls(Imports, Options, Interface3),
+    lager:debug("_162:~n\t~p",[Interface4]),
     parse_wsdls(Tail, Options, Interface4).
 
 %% ----------------------------------------------------------------------------
@@ -238,6 +242,7 @@ get_operations(#'wsdl:definitions'{service = Services} = Wsdl,
         false ->
             Interface;
         #'wsdl:service'{port = Ports} ->
+            lager:debug("_245"),
             case lists:keyfind(Port, #'wsdl:wsdl_port'.name, Ports) of
                 false ->
                     Interface;
@@ -246,6 +251,7 @@ get_operations(#'wsdl:definitions'{service = Services} = Wsdl,
                     Interface2 = 
                         get_ops_from_binding(Wsdl, 
                             Interface#interface{binding = Binding_str}),
+                    lager:debug("_254:~n\t~p~n\t~p",[Interface,Interface2]),
                     Soap_version = Interface2#interface.version,
                     Url = get_url(Extensions, Soap_version),
                     Interface2#interface{url = Url}
@@ -376,15 +382,20 @@ type_for_message(#'wsdl:definitions'{message = Messages}, Message, Model) ->
             {error, "Message " ++ Message ++ " not found"};
         #'wsdl:message'{part = Parts} when length(Parts) /= 1 ->
             {error, "Message " ++ Message ++ " does not have exactly 1 part"};
-        A = #'wsdl:message'{part = [#'wsdl:part'{element = Element,type=Type}]} ->
-            %% what we need is the type
-            lager:debug("_381:~n\t~p",[A]),
+        #'wsdl:message'{part = [#'wsdl:part'{element = Element,type=Type}]} ->
             case Element of
                 undefined ->
-                    Type;
+                    case Type of
+                         {qname,"http://www.w3.org/2001/XMLSchema","string","xsd","xsd"} ->
+                            "";
+                        _ ->
+                            Type
+                    end;
                 _ ->
+                    %% what we need is the type
                     LocalPart = erlsom_lib:localName(Element),
                     Uri = erlsom_lib:getUriFromQname(Element),
+                    lager:debug("_387:~n\t~p~n\t~p~n\t~p",[Element,LocalPart,Uri]),
                     Prefix = erlsom_lib:getPrefixFromModel(Model, Uri),
                     Element_name = case Prefix of 
                                        undefined ->
@@ -394,7 +405,11 @@ type_for_message(#'wsdl:definitions'{message = Messages}, Message, Model) ->
                                        _ -> 
                                            Prefix ++ ":" ++ LocalPart
                                    end,
-                    type_for_element(list_to_atom(Element_name), Model)                    
+                    lager:debug("_399:~n\t~p~n\t~p",[Element_name,Model]),
+                    %% A = type_for_element(list_to_atom(Element_name), Model),                    
+                    %% lager:debug("_400:~n\t~p",[A]),
+                    %% A
+                    list_to_atom(Element_name)
             end
     end.
 

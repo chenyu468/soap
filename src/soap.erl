@@ -317,16 +317,19 @@ wsdl2erlang(File, Options) ->
     Namespaces = soap_compile_wsdl:get_namespaces(File, Options),
     Prefixes_a = get_prefixes(Namespaces, Options),
     lager:debug("_319:~n\t~p",[Prefixes_a]),
-    Prefixes = [{"urn:opacService",undefined}],
+   %% Prefixes = [{"urn:opacService",undefined}],
+    Prefixes = Prefixes_a,
     Strict = proplists:get_value(strict, Options, true),
     Remove = [generate, http_server, http_client, port, service, namespaces,
               client_name, server_name, hrl_name, strict, generate_tests],
     Other_options = [Option || {Key, _} = Option <- Options, 
                                           not(lists:member(Key, Remove))],
+    lager:debug("_326"),
     Options2 = lists:flatten([{generate, Generate}, {namespaces, Prefixes}, 
                               {generate_tests, Generate_tests},
                               Http_server_options, Http_client_options, 
                               {strict, Strict} | Other_options]),
+    lager:debug("_331"),
     soap_compile_wsdl:file(File, Service, Port, Options2, Hrl_name).
 
 %% Generate a module with test functions (using default values) for every 
